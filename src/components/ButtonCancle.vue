@@ -2,7 +2,7 @@
     <div>
         <button 
             class="cancle"
-            @click="cancleQuiz(false)"
+            @click="clickHandler(false)"
         >
             {{BtnCancle}}
         </button>
@@ -12,7 +12,7 @@
 <script>
     export default {
         props:{
-            cancleQuiz:Function,
+            clickHandler:Function,
         },
         data:function(){
             return{

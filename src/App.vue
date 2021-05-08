@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-view /> 
     <view-all-quizess/>
   </div>
 </template>

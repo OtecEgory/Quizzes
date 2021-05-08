@@ -1,109 +1,49 @@
 <template>
     <div>
-        <div class="subject"
-            v-for="nameTag in nameHachTag"
-            :key="nameTag.subject"
-            @click="clickCategory()"
+        <div 
+            v-for="item in nameHachTag"
+            :key="item.subject"
+            :class="`subject ${item.active ? 'active' : ''}`"
+            @click="toggleState(item.subject)"
         >
-            {{nameTag.subject}}
+            {{item.subject}}
         </div>
     </div>
 </template>
 
 <script>
+    // Get mockup data
+    import { hashtags } from "../mock"
+
     export default {
-        props:{
-            clickCategory:Function
-        },
         data: function(){
             return{
-                nameHachTag:[
-                    {
-                        subject: 'Mathematics',
-                    },
-                    {
-                        subject: 'English',
-                    },
-                    {
-                        subject: 'Physics',
-                    },
-                    {
-                        subject: 'Chemistry',
-                    },
-                    {
-                        subject: 'Biology',
-                    },
-                    {
-                        subject: 'Science',
-                    },
-                    {
-                        subject: 'Computers',
-                    },
-                    {
-                        subject: 'Geography',
-                    },
-                    {
-                        subject: 'World Languages',
-                    },
-                    {
-                        subject: 'History',
-                    },
-                    {
-                        subject: 'Social Studies',
-                    },
-                    {
-                        subject: 'Physical Ed',
-                    },
-                    {
-                        subject: 'Arts',
-                    },
-                    {
-                        subject: 'Fun',
-                    },
-                    {
-                        subject: 'Architecture',
-                    },
-                    {
-                        subject: 'Business',
-                    },
-                    {
-                        subject: 'Design',
-                    },
-                    {
-                        subject: 'Education',
-                    },
-                    {
-                        subject: 'Instructional Technology',
-                    },
-                    {
-                        subject: 'Journalism',
-                    },
-                    {
-                        subject: 'Life Skills',
-                    },
-                    {
-                        subject: 'Moral Science',
-                    },
-                    {
-                        subject: 'Performing Arts',
-                    },
-                    {
-                        subject: 'Philosophy',
-                    },
-                    {
-                        subject: 'Religious Studies',
-                    },
-                    {
-                        subject: 'Special Education',
-                    },
-                    {
-                        subject: 'Specialty',
-                    },
-                    {
-                        subject: 'Other',
-                    }
-                ]
+                // TODO: Rename on Hachtags
+                nameHachTag: [],
             }
+        },
+        // Load Data
+        mounted() {
+            this.nameHachTag = hashtags.map(item => {
+                return {
+                    subject: item,
+                    active: false,
+                }
+            })
+        },
+        methods:{
+            toggleState(subject){
+                let filteredItems = this.nameHachTag.filter(item => item.active)
+                let item = this.nameHachTag.find(item => item.subject === subject)
+                let length = filteredItems.length
+
+                if(length >= 3 && !item.active) {
+                    return false
+
+                } else {
+                    item.active = !item.active
+                }
+            },
         }
     }
 </script>
@@ -123,7 +63,8 @@ div.subject
     cursor: pointer
     transition: 0.3s
     font-family: 'Quicksand', sans-serif
-    &:hover
+
+    &.active
         background-color: #7c43bd
         color: #fff
 

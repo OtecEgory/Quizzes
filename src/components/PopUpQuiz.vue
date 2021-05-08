@@ -1,88 +1,69 @@
 <template>
-    <div 
-        class="shadow-background"
-        v-if="statePopUp"
-    >
+    <div class="shadow-background">
         <div class="pop-up">
             <p>1. Name this quiz</p>
             <input 
                 type="text"
                 class="quiz-name"
                 placeholder="Quiz name"
+                autocomplete="off"
                 id="value"
                 v-model="value"
             >
             <span 
                 class="name-error"
                 v-for="error in errors"
-                :key="error.value"
-            >
-                {{error.value}}
-            </span>
-            <span 
-                class="name-error"
-                v-for="error in errors"
-                :key="error.hashtag"
+                :key="error"
             >
                 {{error}}
             </span>
             <p>2. Choose relevant subjects</p>
-            <hashtag-quizess
-                :clickCategory="checkCategory"
-            />
+            <hashtag-quizess/>
             <div class="wrap-button">
-                <button-cancle
-                    :cancleQuiz="closePopUp"
-                />
-                <button-next
-                    :checkValue="checkForm"
-                />
+                <button 
+                    class="cancle"
+                    @click="closePopup"
+                >
+                cancle
+                </button>
+                <button
+                    class="next"
+                    @click="errosChecking"
+                >
+                next
+                </button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import ButtonCancle from './ButtonCancle.vue'
-import ButtonNext from './ButtonNext.vue'
 import HashtagQuizess from './HashtagQuizess.vue'
     export default {
-        components: { HashtagQuizess, ButtonCancle, ButtonNext },
+        components: { HashtagQuizess },
         props:{
-            statePopUp:Boolean
+            closePopup: Function
         },
         data:function(){
             return{
-                errors:[],
+                errors: [],
                 value: null,
                 hashtag: null,
+                errorQuiz: {
+                    nameError: "Пожалуйста, введите название викторины.",
+                }
             }
         },
         methods:{
-            checkForm(){
-                if(this.value){
-                    return true
+            errosChecking(){
+                if(!this.value && !this.errors.includes(this.errorQuiz.nameError)){
+                    this.errors.push(this.errorQuiz.nameError)
                 }
-                this.errors = [];
-
-                if(!this.value){
-                    this.errors.push('Пожалуйста, введите название викторины.')
-                }
+                // }else {
+                //     this.$router.push('/create-quiz')
+                // }
             },
-            checkCategory(){
-                if(this.hashtag){
-                    return true
-                }
-                this.errors = [];
-                
-                if(!this.hashtag){
-                    this.errors.push('Пожалуйста, выберите название викторины.')
-                }
-            },
-            closePopUp(state){
-                return this.statePopUp = state
-            }
-        }
+        },
     }
 </script>
 
@@ -91,7 +72,7 @@ import HashtagQuizess from './HashtagQuizess.vue'
 div.shadow-background
     display: flex
     justify-content: center
-    padding-top: 40px
+    align-items: flex-start
     background-color: #373737
     height: 100%
     position: fixed
@@ -101,16 +82,11 @@ div.shadow-background
     left: 0
 
     div.pop-up
-        display: flex
-        justify-content: space-between
-        flex-direction: column
-        align-items: stretch
         padding: 35px
         border-radius: 8px 
         width: 500px
-        height: 60%
         background-color: #FFFFFF
-        margin: 40px
+        margin: 20px
 
         input.quiz-name
             display: block
@@ -127,20 +103,51 @@ div.shadow-background
             font-family: 'Quicksand', sans-serif
         
         span.name-error
+            display: flex
+            flex-direction: column
+            flex-wrap: wrap
+            padding-top: 10px
             font-family: 'Quicksand', sans-serif
-            font-size: 12px
+            font-size: 14px
             color: #EC0B43
-            position: relative
-            bottom: 25px
 
     p
         font-size: 14px
         font-family: 'Quicksand', sans-serif
-        margin: 0px
-        padding: 0px
 
     div.wrap-button
         display: flex
         justify-content: flex-end
+        padding-top: 30px
+
+    button.cancle
+        font-size: 14px
+        font-family: 'Quicksand', sans-serif
+        padding: 8px 16px
+        border: none
+        margin-right: 20px
+        background-color: #fbc02d
+        cursor: pointer
+        font-size: 16px
+        color: #ffffff
+        font-weight: 500
+        border-radius: 4px
+        text-align: center
+        transition: all 0.1s ease-in-out
+    
+    button.next
+        font-size: 14px
+        font-family: 'Quicksand', sans-serif
+        padding: 8px 16px
+        border: none
+        background: #1fe7bd
+        cursor: pointer
+        font-size: 16px
+        color: #ffffff
+        font-weight: 500
+        border-radius: 4px
+        text-align: center
+        transition: all 0.1s ease-in-out
+
         
 </style>

@@ -4,14 +4,14 @@
             <div class="container-sidebar">
                 <button
                     class="create-quiz"
-                    @click="createNewQuize(true)"
+                    @click="togglePopupQuiz"
                 >
                     create
                 </button>
                 <transition name="component-fade" mode="out-in">
                     <pop-up-quiz
-                        v-if="stateShowPopUp"
-                        :statePopUp="stateShowPopUp"
+                        :closePopup="togglePopupQuiz"
+                        v-show="statePopUp"
                     />
                 </transition>
                 <ul>
@@ -33,7 +33,7 @@ import PopUpQuiz from './PopUpQuiz.vue'
         components: { PopUpQuiz },
         data:function(){
             return{
-                stateShowPopUp: false,
+                statePopUp: false,
                 menulist:[
                     {
                         listItem: 'Color Theme',
@@ -48,8 +48,8 @@ import PopUpQuiz from './PopUpQuiz.vue'
             }
         },
         methods:{
-            createNewQuize(statePopUp){
-                return this.$data.stateShowPopUp = statePopUp
+            togglePopupQuiz(){
+                this.statePopUp = !this.statePopUp
             }
         }
     }
