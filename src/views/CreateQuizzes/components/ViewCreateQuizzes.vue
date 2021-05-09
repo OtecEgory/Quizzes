@@ -10,6 +10,7 @@
                         <textarea name="" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
+                
                 <div class="possible-answers">
                     <div 
                         class="answer"
@@ -17,14 +18,16 @@
                         :key="item.id"
                     >
                         <input type="text">
-                        <div 
+                        <div
+                            v-show="$store.state.stateBtnClose"
                             class="close"
                             @click="deleteAnswer"
                         >
                             +
                         </div>
                     </div>
-                </div>   
+                </div>
+
                 <div class="footer-editor">
                     <button
                         v-show="$store.state.stateBtnAddAnswer" 
@@ -44,15 +47,26 @@ export default {
     methods:{
         deleteAnswer(e){
             let currentElement = e.currentTarget
+            let answearElement = currentElement.parentNode
+
             let answers = this.$store.state.answers
-            let findItem = answers.findIndex(item => item.id == currentElement)
-            
-            if(answers.length == 2){
-                return false
+            let findItem = answers.findIndex(item => item.id === answearElement)
+
+            switch (answers.length) {
+                case 3:
+                    this.$store.state.stateBtnClose = false
+                    break;
+                case 5:
+                    this.$store.state.stateBtnAddAnswer = true
+                    break;
+                case 2:
+                    return false
             }
-            answers.splice(findItem)
+
+            if(answers.length >= 0)
+                answers.splice(findItem, 1)
         }
-    }
+    },
 }
 </script>
 
