@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import Sidebar from '../../../components/Sidebar.vue'
-    export default {
-        components: { Sidebar },
-    }
+import Sidebar from '../../../components/Sidebar'
+export default {
+    components: { Sidebar },
+}
 </script>
 
 <style lang="sass" scoped>

@@ -5,13 +5,8 @@
 </template>
 
 <script>
-import ViewCreateQuizzes from './components/ViewCreateQuizzes.vue'
-    export default {
-  components: { ViewCreateQuizzes },
-        
-    }
+import ViewCreateQuizzes from './components/ViewCreateQuizzes'
+export default {
+    components: { ViewCreateQuizzes },  
+}
 </script>
-
-<style lang="sass" scoped>
-
-</style>

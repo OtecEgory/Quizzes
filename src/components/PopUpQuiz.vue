@@ -26,6 +26,9 @@
                 >
                 cancle
                 </button>
+                <view-create-quizzes
+                    v-show="statePageQuizzes"
+                />
                 <button
                     class="next"
                     @click="errosChecking"
@@ -38,30 +41,35 @@
 </template>
 
 <script>
+import ViewCreateQuizzes from '../views/CreateQuizzes/components/ViewCreateQuizzes.vue'
 import HashtagQuizess from './HashtagQuizess.vue'
     export default {
-        components: { HashtagQuizess },
+        components: { HashtagQuizess, ViewCreateQuizzes },
         props:{
             closePopup: Function
         },
         data:function(){
-            return{
+            return { 
                 errors: [],
                 value: null,
                 hashtag: null,
                 errorQuiz: {
-                    nameError: "Пожалуйста, введите название викторины.",
-                }
+                    nameError: 'Пожалуйста, введите название викторины.',
+                },
+                statePageQuizzes: false
             }
         },
         methods:{
             errosChecking(){
                 if(!this.value && !this.errors.includes(this.errorQuiz.nameError)){
                     this.errors.push(this.errorQuiz.nameError)
+                }else {
+                    this.$store.state.statePageQuizzes != this.$store.state.statePageQuizzes
+                    if(this.$route.fullPath !== '/create-quiz'){
+                        this.$router.push('/create-quiz')
+                        this.$store.state.statePopUp
+                    }
                 }
-                // }else {
-                //     this.$router.push('/create-quiz')
-                // }
             },
         },
     }

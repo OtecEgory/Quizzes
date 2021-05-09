@@ -5,9 +5,8 @@
 </template>
 
 <script>
-import ViewAllQuizess from './components/ViewAllQuizess.vue'
-    export default {
-  components: { ViewAllQuizess },
-        
-    }
+import ViewAllQuizess from './components/ViewAllQuizess'
+export default {
+    components: { ViewAllQuizess },
+}
 </script>

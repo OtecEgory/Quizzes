@@ -11,7 +11,7 @@
                 <transition name="component-fade" mode="out-in">
                     <pop-up-quiz
                         :closePopup="togglePopupQuiz"
-                        v-show="statePopUp"
+                        v-show="this.$store.state.statePopUp"
                     />
                 </transition>
                 <ul>
@@ -49,7 +49,7 @@ import PopUpQuiz from './PopUpQuiz.vue'
         },
         methods:{
             togglePopupQuiz(){
-                this.statePopUp = !this.statePopUp
+                this.$store.state.statePopUp = !this.$store.state.statePopUp
             }
         }
     }
