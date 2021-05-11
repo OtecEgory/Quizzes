@@ -14,11 +14,11 @@ export default new Vuex.Store({
         answers:[
             {
                 id: uuidv4(),
-                name: '',
+                value: '',
             },
             {
                 id: uuidv4(),
-                name: '',
+                value: '',
             }
         ],
     },
@@ -31,7 +31,7 @@ export default new Vuex.Store({
             let addAnswer = () => {
                 state.answers.push({
                     id: uuidv4(),
-                    name: '',
+                    value: '',
                 })
             }
 
@@ -46,7 +46,6 @@ export default new Vuex.Store({
                     return false
             }
             addAnswer()
-
         },
     },
 
