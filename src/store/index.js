@@ -11,6 +11,7 @@ export default new Vuex.Store({
         stateSlider: false,
         stateBtnAddAnswer: true,
         stateBtnClose: false,
+        questions: [],
         answers:[
             {
                 id: uuidv4(),
@@ -47,6 +48,7 @@ export default new Vuex.Store({
             }
             addAnswer()
         },
+        
     },
 
     actions:{},

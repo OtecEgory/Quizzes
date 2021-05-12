@@ -4,6 +4,10 @@
     </div>
 </template>
 
-<style lang="sass" scoped>
-
+<style lang="sass">
+body
+    margin: 0
+    padding: 0
+    *
+        box-sizing: border-box
 </style>

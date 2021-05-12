@@ -32,14 +32,13 @@
                         <input 
                             type="text"
                             v-model="item.value"
-                            @keyup="handleKeyup(item.id)"
                         >
                         <div
                             v-show="$store.state.stateBtnClose"
                             class="close"
                             @click="deleteAnswer(item.id)"
                         >
-                            +
+                        <img src="../../../assets/free-icon-delete-801983 1(1).svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -51,7 +50,6 @@
                     Добавить вариант ответа
                 </button>
                 <div class="footer-editor">
-                    <div class="wrap-button">
                         <div class="select">
                             <div 
                                 class="header-select"
@@ -71,19 +69,20 @@
                                     </div>
                                 </div>
                             </transition>
-                            <button 
-                                class="cancle"
-                                @click="cancleCreateQuestion"
-                            >
-                            cancle
-                            </button>
-                            <button
-                                class="next"
-                                @click="checkAnswers"
-                            >
-                            next
-                            </button>
                         </div>
+                        <div class="wrap-button">
+                        <button 
+                            class="cancle"
+                            @click="cancleCreateQuestion"
+                        >
+                        cancle
+                        </button>
+                        <button
+                            class="next"
+                            @click="checkAnswers"
+                        >
+                        next
+                        </button>
                     </div>
                 </div>
             </div>
@@ -146,23 +145,22 @@ export default {
                 this.$router.push('/')
             }
         },
-        handleKeyup(id) {
-            let value = event.currentTarget.value
-
-            console.log(value)
-            
-            let item = this.$store.state.answers.find(item => item.id === id)
-
-            item.value = value
-        },
         checkAnswers() {
             let items = this.$store.state.answers.filter(item => item.value)
 
-            if(items.length < 2) {
+            if(items.length < 2){
                 this.errors.push(this.error.name)
                 setTimeout(()=>{
                     this.showErrorItem = false
+                    this.errors.splice(this.error.name)
                 },2000)
+                this.showErrorItem = true
+            }else{
+                this.$store.state.questions.push({
+                    id: uuidv4(),
+                    answers: this.$store.state.answers
+                })
+                this.$router.push('/editor')
             }
         }
     },
@@ -213,6 +211,8 @@ div.answer
     display: flex
     justify-content: center
     align-items: center
+    font-family: 'Quicksand', sans-serif
+    font-size: 14px
     input
         display: block
         width: 100%
@@ -220,7 +220,7 @@ div.answer
         box-sizing: border-box
         height: 40px
         font-size: 16px
-        padding: 0 16px
+        padding: 0 35px 0 20px
         color: #292A3A
         border-radius: 8px
         background-color: #fff
@@ -231,8 +231,11 @@ div.answer
 div.close
     margin-left: 10px
     cursor: pointer
-    font-size: 20px
-    transform: rotate(45deg)
+    position: relative
+    right: 10%
+    bottom: 7%
+    width: 10px
+    height: 10px
 
 button.cancle
     font-size: 14px
@@ -271,10 +274,9 @@ div.header-select
     justify-content: space-between
     align-items: center
     width: 125px
-    height: 50px
-    padding: 0px 20px
+    padding: 8px 16px
     border: solid 1px #e4e4e4
-    font-family: 'DIN Next LT Pro'
+    font-family: 'Quicksand', sans-serif
     font-size: 14px
     font-weight: 500
     font-style: normal
@@ -304,11 +306,11 @@ div.options
     justify-content: flex-start
     align-items: center
     margin: 0
-    font-family: 'DIN Next LT Pro'
+    font-family: 'Quicksand', sans-serif
+    font-size: 14px
     cursor: pointer
     width: 123px
-    height: 50px
-    padding: 0px 20px
+    padding: 8px 16px
     text-align: left
     &:hover
         background-color: #E4E4E4
@@ -321,6 +323,20 @@ span.option-error
     font-family: 'Quicksand', sans-serif
     font-size: 14px
     color: #EC0B43
+
+div.footer-editor
+    display: flex
+    justify-content: space-between
+    margin: 20px 0px
+
+
+button.add-answear
+    margin: 20px 0px
+
+div.select-all
+    font-family: 'Quicksand', sans-serif
+    font-size: 14px
+    margin: 15px 0px
 
 
 </style>
